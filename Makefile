@@ -1,5 +1,5 @@
 #OOC_FLAGS=-v -g +-w -sourcepath=source -DNO_STDIO_REDIRECT +-mwindows -lmingw32 -lSDLmain -lSDL -lopengl32 -lglu32 -lglew32 -nolibcache $(shell echo $$OOC_FLAGS)
-OOC_FLAGS=-q -g +-w -sourcepath=source -r $(shell echo $$OOC_FLAGS)
+OOC_FLAGS=-q -g +-w -sourcepath=source $(shell echo $$OOC_FLAGS)
 
 OOC?=rock
 
