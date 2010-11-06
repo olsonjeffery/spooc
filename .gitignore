@@ -1,0 +1,6 @@
+*_tmp
+*.x
+*.blend1
+*~
+.libs
+rock_tmp
