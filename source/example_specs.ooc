@@ -4,6 +4,7 @@ import Specify
 main: func {
   Specify when("doing blah blah", |ctx|{
     // state for the context
+    sut := SystemUnderTest new()
     foo := 0
 
     // setup code that is ran first, used
@@ -12,8 +13,8 @@ main: func {
       foo = 1
     })
 
-    // this is always ran after any before
-    // closure, but before any it specs..
+    // this is always ran after any before()
+    // closure, but before any it() specs..
     // should be used to specify the "money
     // item" that verifies your desired behavior
     // NOTE: strictly speaking, this isn't neccesary,
@@ -38,4 +39,9 @@ main: func {
   })
 
   Specify runAll()
+
+  return 1
+}
+
+SystemUnderTest: class {
 }
