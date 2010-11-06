@@ -42,10 +42,12 @@ Specify: class {
     This contexts add(ctx)
   }
 
-  runAll: static func() {
+  runAll: static func() -> Int {
     for(ctx in This contexts) {
       ctx name println()
       ctx run()
     }
+
+    return 0
   }
 }
