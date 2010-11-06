@@ -1,53 +1,26 @@
-import structs/ArrayList
+import SpecifyInstance
+import SpecContext
 
-SpecContext: class {
-  beforeFunc: Func
-  becauseFunc: Func
-  specNames: ArrayList<String>
-  specFuncs: ArrayList<Func>
-
-  name: String
-  init: func(.name) {
-    this name = name
-    this beforeFunc = func { }
-    this becauseFunc = func { }
-    this specNames = ArrayList<String> new()
-    this specFuncs = ArrayList<Func> new()
-  }
-
-  before: func(b: Func) {
-    this beforeFunc = b
-  }
-  because: func(b: Func) {
-    this becauseFunc = b
-  }
-  it: func(name: String, spec: Func) {
-    this specNames add(name)
-    this specFuncs add(spec)
-  }
-
-  run: func() {
-  }
-}
-
+// Specify is just a static singleton wrapper around
+// the SpecifyInstance class, which is where the actual
+// impl of our testing DSL lives.. This way, we have
+// a usable DSL for composing tests (Specify.when(), etc)
+// and SpecInstance itself is testable
 Specify: class {
-  contexts: static ArrayList<SpecContext>
-  when: static func(name: String, spec: Func(SpecContext)) {
-    ctx := SpecContext new(name)
-    spec(ctx)
-
-    if (This contexts == null) {
-      This contexts = ArrayList<SpecContext> new()
+  initIfNeeded: static func() {
+    if (This specInst == null) {
+      This specInst = SpecifyInstance new()
     }
-    This contexts add(ctx)
+  }
+
+  specInst: static SpecifyInstance
+  when: static func(name: String, spec: Func(SpecContext)) {
+    This initIfNeeded()
+    This specInst when(name, spec)
   }
 
   runAll: static func() -> Int {
-    for(ctx in This contexts) {
-      ctx name println()
-      ctx run()
-    }
-
-    return 0
+    This initIfNeeded()
+    This specInst runAll()
   }
 }
