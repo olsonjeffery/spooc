@@ -24,3 +24,7 @@ Specify: class {
     This specInst runAll()
   }
 }
+
+Fixture: class {
+  fixture: func() {}
+}

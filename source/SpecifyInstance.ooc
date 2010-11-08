@@ -18,7 +18,6 @@ SpecifyInstance: class {
 
   runAll: func() -> Int {
     this contexts each(|ctx| {
-      ("+ " + (ctx name)) println()
       ctx run()
     })
 
