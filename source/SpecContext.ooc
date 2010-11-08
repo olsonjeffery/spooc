@@ -32,6 +32,7 @@ SpecContext: class {
   }
 
   run: func() {
+    "" println()
     ("+ " + (this name)) println()
     this beforeFunc()
     this becauseFunc()

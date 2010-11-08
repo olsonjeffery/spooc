@@ -4,23 +4,20 @@ import SpecifyInstance
 
 specInst: SpecifyInstance
 
-main: func() {
-  Specify when("declaring a new context via SpecifyInstance.when()", |ctx| {
+Specify when("declaring a new context via SpecifyInstance.when()", |ctx| {
 
-    ctx before(|| {
-      specInst = SpecifyInstance new()
-    })
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+  })
 
-    ctx because(|| {
-      // this is not an actual, testable spec.. this is the spec
-      // we're declaring to test desired behavior
-      specInst when("foo", |ctx_under_test| {
-      })
-    })
-
-    ctx it("should create and store a new context within the SpecifyInstance contexts property", || {
-      specInst contexts size shouldEqual(1)
+  ctx because(|| {
+    // this is not an actual, testable spec.. this is the spec
+    // we're declaring to test desired behavior
+    specInst when("foo", |ctx_under_test| {
     })
   })
-  Specify.runAll()
-}
+
+  ctx it("should create and store a new context within the SpecifyInstance contexts property", || {
+    specInst contexts size shouldEqual(1)
+  })
+})

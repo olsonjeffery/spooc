@@ -1,5 +1,5 @@
 #OOC_FLAGS=-v -g +-w -sourcepath=source -DNO_STDIO_REDIRECT +-mwindows -lmingw32 -lSDLmain -lSDL -lopengl32 -lglu32 -lglew32 -nolibcache $(shell echo $$OOC_FLAGS)
-OOC_FLAGS=-q -g +-w -sourcepath=source $(shell echo $$OOC_FLAGS)
+OOC_FLAGS=-v -g +-w -sourcepath=source $(shell echo $$OOC_FLAGS)
 
 OOC?=rock
 
@@ -7,10 +7,10 @@ TESTFILESUFFIX=*_specs
 
 all: test
 
-test: test_run test_clean
+test: test_single test_clean
 
-test_run:
-	set -e; for file in source/*${TESTFILESUFFIX}.ooc; do fn=$$(basename "$$file"); fn=$${fn%.*}; ${OOC} ${OOC_FLAGS} $$fn; ./$$fn; done
+test_single:
+	set -e; ${OOC} ${OOC_FLAGS} all_specs; ./all_specs
 
 clean: cache_clean test_clean bin_clean
 

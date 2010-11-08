@@ -2,58 +2,59 @@
 import Specify
 import Assert
 
-// state for the contexts that appear in fixture()
+// State for the contexts that appear in the below contexts
 sut: SystemUnderTest
 result: String
 input: String
 
-// by convention, the contexts are contained within
-// a class that has the same name as the module (filename - ooc)
-example_specs: class extends Fixture {
-  // inside of the fixture() method you place all of
-  // the testable scenarios that you want to verify
-  // the behavior of, each represented by a call to
-  // Specify.when(). In the parlance of Context/Spec
-  // testing, each one of these scenarios is called a
-  // Context.
-  fixture: func {
-    Specify when("when doing foo with an input of bar", |ctx|{
+// An example of a testable scenario, containing some
+// behavior you'd like to verify in a given situation.
+// In the parlance of Context/Spec testing, each one 
+// of these scenarios is called a Context.
+Specify when("doing foo with an input of bar", |ctx|{
 
-      // setup code that is ran first, used
-      // to establish the context..
-      ctx.before(||{
-        sut = SystemUnderTest new()
-        input = "bar"
-      })
+  // setup code that is ran first, used
+  // to establish the Context..
+  ctx.before(||{
+    sut = SystemUnderTest new()
+    input = "bar"
+  })
 
-      // this is always ran after any before()
-      // closure, but before any it() specs..
-      // should be used to specify the "money
-      // item" that verifies your desired behavior
-      // NOTE: strictly speaking, this isn't neccesary,
-      // but is useful to "call out" the important
-      // behavior you're verifying. it's value is purely
-      // semantic.
-      ctx.because(|| {
-        result = sut foo(input) 
-      })
+  // This is always ran after any before()
+  // closure, but before any it() specs..
+  // should be used to specify the "money
+  // item" that enables you to establish desired
+  // behavior.
+  // NOTE: Strictly speaking, this isn't neccesary,
+  // but is useful to "call out" the important
+  // behavior you're verifying. Its value is purely
+  // semantic.
+  ctx.because(|| {
+    result = sut foo(input) 
+  })
 
-      // a specification of desired behavior
-      ctx.it("should provide the answer to the ultimate question of life, the universe and everything", || {
-        // an assertion. "good practice" for
-        // Context/Spec style testing dictates
-        // that you should try your damnedest 
-        // to make each it() call a one-line..
-        // so if you're doing multiple asserts
-        // in one it(), maybe you should split
-        // them up?
-        result.shouldEqual("42")
-      })
-    })
+  // A Specification of desired behavior. A given
+  // context can contain zero or more of these.
+  ctx.it("should provide the answer to the ultimate question of life, the universe and everything", || {
+    // An assertion. "Good practice" for
+    // Context/Spec style testing dictates
+    // that you should try your damnedest 
+    // to make each it() call a one-liner..
+    // so if you're doing multiple asserts
+    // in one it(), maybe you should think
+    // about splitting them up?
+    result.shouldEqual("42")
+  })
 
-  }
-}
+  // You can also "flush" out Specifications by name
+  // only. In this case, the spec will be annotated,
+  // at runtime, of this fact.
+  ctx.it("should be an unimplemented spec")
+})
 
+// The Type that the above Context covers. A given
+// set of Contexts in a module can cover as many or
+// as few classes as you'd like. Whether 
 SystemUnderTest: class {
   foo: func(input: String) -> String {
     result := "baz"
@@ -62,12 +63,4 @@ SystemUnderTest: class {
     }
     return result
   }
-}
-
-main: func {
-  // loads the contexts/specs in fixture()
-  // into the global runner
-  example_specs new() fixture()
-  // run the loaded contexts/specs
-  return Specify runAll()
 }
