@@ -4,7 +4,7 @@ import Assert
 
 // state for the contexts that appear in fixture()
 sut: SystemUnderTest
-result: Int
+result: String
 input: String
 
 // by convention, the contexts are contained within
@@ -47,7 +47,7 @@ example_specs: class extends Fixture {
         // so if you're doing multiple asserts
         // in one it(), maybe you should split
         // them up?
-        Assert.isTrue(result == 42)
+        result.shouldEqual("42")
       })
     })
 

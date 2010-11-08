@@ -19,8 +19,7 @@ main: func() {
     })
 
     ctx it("should create and store a new context within the SpecifyInstance contexts property", || {
-      "derp" println()
-      Assert isTrue(specInst contexts size == 1)
+      specInst contexts size shouldEqual(1)
     })
   })
   Specify.runAll()
