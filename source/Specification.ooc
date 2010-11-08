@@ -11,7 +11,6 @@ Specification: class {
   }
 
   runSpec: func() {
-    "inside run()" println()
     this impl()
   }
 }
