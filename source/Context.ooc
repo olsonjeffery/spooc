@@ -2,7 +2,7 @@ import structs/ArrayList
 
 import Specification
 
-SpecContext: class {
+Context: class {
   beforeFunc: Func
   becauseFunc: Func
   specs: ArrayList<Specification>

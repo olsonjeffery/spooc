@@ -1,5 +1,5 @@
 import SpecifyInstance
-import SpecContext
+import Context
 
 // Specify is just a static singleton wrapper around
 // the SpecifyInstance class, which is where the actual
@@ -14,7 +14,7 @@ Specify: class {
   }
 
   specInst: static SpecifyInstance
-  when: static func(name: String, spec: Func(SpecContext)) {
+  when: static func(name: String, spec: Func(Context)) {
     This initIfNeeded()
     This specInst when(name, spec)
   }

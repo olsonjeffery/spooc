@@ -1,16 +1,16 @@
 import structs/ArrayList
 
-import SpecContext
+import Context
 
 SpecifyInstance: class {
-  contexts: ArrayList<SpecContext>
+  contexts: ArrayList<Context>
 
   init: func() {
-    this contexts = ArrayList<SpecContext> new()
+    this contexts = ArrayList<Context> new()
   }
 
-  when: func(name: String, spec: Func(SpecContext)) {
-    ctx := SpecContext new(name)
+  when: func(name: String, spec: Func(Context)) {
+    ctx := Context new(name)
     spec(ctx)
 
     this contexts add(ctx)
