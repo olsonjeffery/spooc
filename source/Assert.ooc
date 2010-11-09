@@ -4,7 +4,7 @@ import lang/Exception
 Assert: class {
   isTrue: static func(result: Bool) {
     if(!result) {
-      Exception new("Excepted true, was: " + (result toString())) throw()
+      AssertionFailureError new("Excepted true, was: " + (result toString())) throw()
     }
   }
 
@@ -30,18 +30,18 @@ extend Bool {
     if (me != other) {
       meVal := me toString() 
       otherVal := other toString()
-      Exception new("Expected "+ otherVal + ", was " + meVal) throw()
+      AssertionFailureError new("Expected "+ otherVal + ", was " + meVal) throw()
     }
   }
 
   shouldBeTrue: func {
     if (this != true) {
-      Exception new("Expected true, but was false") throw()
+      AssertionFailureError new("Expected true, but was false") throw()
     }
   }
   shouldBeFalse: func {
     if (this != false) {
-      Exception new("Expected false, but was true") throw()
+      AssertionFailureError new("Expected false, but was true") throw()
     }
   }
 }
@@ -52,7 +52,7 @@ extend Int {
     if (me != other) {
       meVal := me toString() 
       otherVal := other toString()
-      Exception new("Expected "+ otherVal + ", was " + meVal) throw()
+      AssertionFailureError new("Expected "+ otherVal + ", was " + meVal) throw()
     }
   }
 }
@@ -62,7 +62,7 @@ extend SSizeT {
     if (me != other) {
       meVal := me toString() 
       otherVal := other toString()
-      Exception new("Expected "+ otherVal + ", was " + meVal) throw()
+      AssertionFailureError new("Expected "+ otherVal + ", was " + meVal) throw()
     }
   }
 }
@@ -73,7 +73,13 @@ extend String {
     if (me != other) {
       meVal := me 
       otherVal := other
-      Exception new("Expected "+ otherVal + ", was " + meVal) throw()
+      AssertionFailureError new("Expected "+ otherVal + ", was " + meVal) throw()
     }
+  }
+}
+
+AssertionFailureError: class extends Exception {
+  init: func(msg: String) {
+    super(msg)
   }
 }

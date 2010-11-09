@@ -1,6 +1,7 @@
 import structs/ArrayList
 
 import Specification
+import SpecificationResult
 
 Context: class {
   beforeFunc: Func
@@ -53,23 +54,17 @@ Context: class {
     this beforeFunc()
     for (spec in specs) {
       msg := (" - " + (spec name))
-      failed := false
-      fe: Exception
-      if(spec runnable) {
-        try {
-          spec runSpec()
-        }
-        catch(e: Exception){
-          msg += " [FAILED]"
-          // do something useful w/ exception
-          fe = e
-          failed = true
-        }
-      }
-      else {
-        msg += " [UNIMPLEMENTED]"}
+      result := spec runSpec()
+      fe := result failureException
+      ee := result errorException
+      failed := result failed
+      error := result error
+      if(!(result runnable)) msg += " [UNIMPLEMENTED]"
+      else if (result failed) msg += " [FAILED]"
+      else if (result error) msg += " [ERROR]"
       msg println()
       if (failed) fe print()
+      if (error) ee print()
     }
     this afterFunc()
   }

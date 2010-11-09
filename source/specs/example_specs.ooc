@@ -15,7 +15,7 @@ Specify when("doing foo with an input of bar", |ctx|{
 
   // setup code that is ran first, used
   // to establish the Context..
-  ctx.before(||{
+  ctx before(||{
     sut = SystemUnderTest new()
     input = "bar"
 
@@ -24,7 +24,7 @@ Specify when("doing foo with an input of bar", |ctx|{
 
   // A Specification of desired behavior. A given
   // context can contain zero or more of these.
-  ctx.it("should provide the answer to the ultimate question of life, the universe and everything", || {
+  ctx it("should provide the answer to the ultimate question of life, the universe and everything", || {
     // An assertion. "Good practice" for
     // Context/Spec style testing dictates
     // that you should try your damnedest 
@@ -38,7 +38,8 @@ Specify when("doing foo with an input of bar", |ctx|{
   // You can also "flush" out Specifications by name
   // only. In this case, the spec will be annotated,
   // at runtime, of this fact.
-  ctx.it("should be an unimplemented spec")
+  ctx it("should be an unimplemented spec")
+  ctx it("should be a failing spec", || {true.shouldBeFalse()})
 })
 
 // The Type that the above Context covers. A given
