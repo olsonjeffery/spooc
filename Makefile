@@ -10,7 +10,7 @@ all: test
 test: test_single test_clean
 
 test_single:
-	set -e; ${OOC} ${OOC_FLAGS} all_specs; ./all_specs
+	set -e; ${OOC} ${OOC_FLAGS} specs/all_specs; ./all_specs
 
 clean: cache_clean test_clean bin_clean
 

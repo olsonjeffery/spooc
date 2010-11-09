@@ -1,6 +1,6 @@
 //use spooc 
-import Specify
-import Assert
+import ../Specify
+import ../Assert
 
 // State for the contexts that appear in the below contexts
 sut: SystemUnderTest

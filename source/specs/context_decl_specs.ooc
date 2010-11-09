@@ -1,8 +1,8 @@
-import Specify
-import Assert
+import ../Specify
+import ../Assert
 
-import SpecifyInstance
-import Context
+import ../SpecifyInstance
+import ../Context
 
 specInst: SpecifyInstance
 

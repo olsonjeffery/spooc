@@ -1,4 +1,4 @@
-import Specify
+import ../Specify
 
 import context_decl_specs
 import example_specs
