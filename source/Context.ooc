@@ -4,6 +4,7 @@ import Specification
 
 Context: class {
   beforeFunc: Func
+  beforeDeclared: Bool
   specs: ArrayList<Specification>
   runnable: Bool
 
@@ -11,12 +12,17 @@ Context: class {
   init: func(.name) {
     this name = name
     this beforeFunc = func { }
+    this beforeDeclared = false
     this specs = ArrayList<Specification> new()
     this runnable = false;
   }
 
   before: func(b: Func) {
+    if(beforeDeclared) {
+      Exception new("Attempt to declare multiple 'before' sections in Context '"+ (this name)+"'") throw()
+    }
     this beforeFunc = b
+    this beforeDeclared = true
   }
   it: func ~impl (name: String, impl: Func) {
     spec := Specification new(name, impl)
@@ -38,7 +44,7 @@ Context: class {
       msg := (" - " + (spec name))
       failed := false
       fe: Exception
-      if(spec hasImpl) {
+      if(spec runnable) {
         try {
           spec runSpec()
         }

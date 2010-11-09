@@ -1,12 +1,12 @@
 Specification: class {
   name: String
   impl: Func
-  hasImpl: Bool
+  runnable: Bool
   init: func ~impl (=name, =impl) { 
-    this hasImpl = true
+    this runnable = true
   }
   init: func ~noimpl (=name) { 
-    this hasImpl = false 
+    this runnable = false 
     this impl = func() {}
   }
 

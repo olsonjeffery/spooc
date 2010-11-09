@@ -3,6 +3,7 @@ import ../Assert
 
 import ../SpecifyInstance
 import ../Context
+import ../Specification
 
 specInst: SpecifyInstance
 
@@ -12,8 +13,6 @@ Specify when("declaring a new context via SpecifyInstance.when() that has no spe
 
   ctx before(|| {
     specInst = SpecifyInstance new()
-    // this is not an actual, testable spec.. this is the spec
-    // we're declaring to test desired behavior
     specInst when("foo", |ctx_under_test| {
     })
   })
@@ -32,6 +31,7 @@ Specify.when("declaring a new context with one or more specs", |ctx| {
       ctx_under_test it("should blah blah")
     })
   })
+
   ctx it("should be runnable", || { specInst contexts first() runnable shouldBeTrue() })
 })
 
@@ -43,23 +43,63 @@ Specify.when("declaring a context when no before section", |ctx| {
       })
     })
   })
+
   ctx it("should work", || {
     actionFailed shouldBeFalse()
   })
 })
 
 Specify.when("declaring a context with a single before section", |ctx| {
-  ctx it("should work")
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    actionFailed = Assert throws(|| {
+      specInst when("foo", |ctx_under_test| {
+        ctx_under_test before(|| {})
+      })
+    })
+  })
+
+  ctx it("should work", || {
+    actionFailed shouldBeFalse()
+  })
 })
 
 Specify.when("declaring a context with multiple before sections", |ctx| {
-  ctx it("should cause an error")
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    actionFailed = Assert throws(|| {
+      specInst when("foo", |ctx_under_test| {
+        ctx_under_test before(|| {})
+        ctx_under_test before(|| {})
+      })
+    })
+  })
+
+  ctx it("should cause an error", ||{
+    actionFailed shouldBeTrue()
+  })
 })
 
-Specify.when("declaring a context within a spec with an implementation", |ctx| {
-  ctx it("should be runnable")
+Specify.when("declaring a context with a spec with an implementation", |ctx| {
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    specInst when("foo", |ctx_under_test| {
+      ctx_under_test it("should blah blah", || {})
+    })
+  })
+  ctx it("should have the spec be marked as runnable", || {
+    specInst contexts first() specs first() runnable shouldBeTrue()
+  })
 })
 
-Specify.when("declaring a context within a spec with no implementation", |ctx| {
-  ctx it("should be not runnable")
+Specify.when("declaring a context with a spec with no implementation", |ctx| {
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    specInst when("foo", |ctx_under_test| {
+      ctx_under_test it("should blah blah")
+    })
+  })
+  ctx it("should have the spec be marked as not runnable", ||{
+    specInst contexts first() specs first() runnable shouldBeFalse()
+  })
 })
