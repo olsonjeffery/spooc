@@ -18,18 +18,7 @@ Specify when("doing foo with an input of bar", |ctx|{
   ctx.before(||{
     sut = SystemUnderTest new()
     input = "bar"
-  })
 
-  // This is always ran after any before()
-  // closure, but before any it() specs..
-  // should be used to specify the "money
-  // item" that enables you to establish desired
-  // behavior.
-  // NOTE: Strictly speaking, this isn't neccesary,
-  // but is useful to "call out" the important
-  // behavior you're verifying. Its value is purely
-  // semantic.
-  ctx.because(|| {
     result = sut foo(input) 
   })
 
