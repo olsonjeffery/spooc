@@ -8,7 +8,7 @@ Assert: class {
     }
   }
 
-  throws: static func(f:Func) -> Bool {
+  throws: static func(f:Func()) -> Bool {
     result := false
     try {
       f()
@@ -31,6 +31,17 @@ extend Bool {
       meVal := me toString() 
       otherVal := other toString()
       Exception new("Expected "+ otherVal + ", was " + meVal) throw()
+    }
+  }
+
+  shouldBeTrue: func {
+    if (this != true) {
+      Exception new("Expected true, but was false") throw()
+    }
+  }
+  shouldBeFalse: func {
+    if (this != false) {
+      Exception new("Expected false, but was true") throw()
     }
   }
 }
