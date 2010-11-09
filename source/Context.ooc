@@ -5,12 +5,14 @@ import Specification
 Context: class {
   beforeFunc: Func
   specs: ArrayList<Specification>
+  runnable: Bool
 
   name: String
   init: func(.name) {
     this name = name
     this beforeFunc = func { }
     this specs = ArrayList<Specification> new()
+    this runnable = false;
   }
 
   before: func(b: Func) {
@@ -19,11 +21,13 @@ Context: class {
   it: func ~impl (name: String, impl: Func) {
     spec := Specification new(name, impl)
     this specs add(spec)
+    this runnable = true
   }
 
   it: func ~unimpl (name: String) {
     spec := Specification new(name)
     this specs add(spec)
+    this runnable = true
   }
 
   run: func() {
