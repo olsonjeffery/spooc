@@ -80,6 +80,51 @@ Specify.when("declaring a context with multiple before sections", |ctx| {
   })
 })
 
+Specify.when("declaring a context when no after section", |ctx| {
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    actionFailed = Assert throws(|| {
+      specInst when("foo", |ctx_under_test| {
+      })
+    })
+  })
+
+  ctx it("should work", || {
+    actionFailed shouldBeFalse()
+  })
+})
+
+Specify.when("declaring a context with a single after section", |ctx| {
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    actionFailed = Assert throws(|| {
+      specInst when("foo", |ctx_under_test| {
+        ctx_under_test after(|| {})
+      })
+    })
+  })
+
+  ctx it("should work", || {
+    actionFailed shouldBeFalse()
+  })
+})
+
+Specify.when("declaring a context with multiple after sections", |ctx| {
+  ctx before(|| {
+    specInst = SpecifyInstance new()
+    actionFailed = Assert throws(|| {
+      specInst when("foo", |ctx_under_test| {
+        ctx_under_test after(|| {})
+        ctx_under_test after(|| {})
+      })
+    })
+  })
+
+  ctx it("should cause an error", ||{
+    actionFailed shouldBeTrue()
+  })
+})
+
 Specify.when("declaring a context with a spec with an implementation", |ctx| {
   ctx before(|| {
     specInst = SpecifyInstance new()

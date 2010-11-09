@@ -5,6 +5,8 @@ import Specification
 Context: class {
   beforeFunc: Func
   beforeDeclared: Bool
+  afterFunc: Func
+  afterDeclared: Bool
   specs: ArrayList<Specification>
   runnable: Bool
 
@@ -13,6 +15,8 @@ Context: class {
     this name = name
     this beforeFunc = func { }
     this beforeDeclared = false
+    this afterFunc = func { }
+    this afterDeclared = false
     this specs = ArrayList<Specification> new()
     this runnable = false;
   }
@@ -23,6 +27,13 @@ Context: class {
     }
     this beforeFunc = b
     this beforeDeclared = true
+  }
+  after: func(b: Func) {
+    if(afterDeclared) {
+      Exception new("Attempt to declare multiple 'after' sections in Context '"+ (this name)+"'") throw()
+    }
+    this afterFunc = b
+    this afterDeclared = true
   }
   it: func ~impl (name: String, impl: Func) {
     spec := Specification new(name, impl)
@@ -60,5 +71,6 @@ Context: class {
       msg println()
       if (failed) fe print()
     }
+    this afterFunc()
   }
 }

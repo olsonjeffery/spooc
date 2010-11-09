@@ -19,7 +19,9 @@ SpecifyInstance: class {
   runAll: func() -> Int {
     "---" println()
     this contexts each(|ctx| {
-      ctx run()
+      if(ctx runnable) {
+        ctx run()
+      }
     })
     "---" println()
 
