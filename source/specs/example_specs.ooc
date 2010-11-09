@@ -54,3 +54,13 @@ SystemUnderTest: class {
     return result
   }
 }
+
+
+// Our main() to run the specs. In a larger test
+// project, you might want to have an 'all_specs'
+// module where you reference all the other modules
+// where you declare your Contexts. An example of
+// this can be seen in all_specs.ooc in this directory
+main: func {
+  return Specify.runAll()
+}
