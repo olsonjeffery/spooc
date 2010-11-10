@@ -50,24 +50,11 @@ Context: class {
   }
 
   run: func() -> ContextResult {
-    "" println()
-    ("+ " + (this name)) println()
     this beforeFunc()
     specResults := ArrayList<SpecificationResult> new()
     for (spec in specs) {
-      msg := (" - " + (spec name))
       result := spec runSpec()
       specResults add(result)
-      fe := result failureException
-      ee := result errorException
-      failed := result failed
-      error := result error
-      if(!(result runnable)) msg += " [UNIMPLEMENTED]"
-      else if (result failed) msg += " [FAILED]"
-      else if (result error) msg += " [ERROR]"
-      msg println()
-      if (failed) fe print()
-      if (error) ee print()
     }
     this afterFunc()
 

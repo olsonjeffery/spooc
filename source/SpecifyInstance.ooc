@@ -19,14 +19,12 @@ SpecifyInstance: class {
   }
 
   runAll: func() -> RunResult {
-    "---" println()
     ctxResults := ArrayList<ContextResult> new()
     this contexts each(|ctx| {
       if(ctx runnable) {
         ctxResults add(ctx run())
       }
     })
-    "---" println()
 
     return (RunResult new(ctxResults))
   }
