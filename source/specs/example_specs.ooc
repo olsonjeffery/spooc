@@ -62,5 +62,5 @@ SystemUnderTest: class {
 // where you declare your Contexts. An example of
 // this can be seen in all_specs.ooc in this directory
 main: func {
-  return Specify.runAll()
+  Specify.runAll()
 }

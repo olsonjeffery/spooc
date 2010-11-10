@@ -1,5 +1,6 @@
 import SpecifyInstance
 import Context
+import RunResult
 
 // Specify is just a static singleton wrapper around
 // the SpecifyInstance class, which is where the actual
@@ -19,9 +20,9 @@ Specify: class {
     This specInst when(name, spec)
   }
 
-  runAll: static func() -> Int {
+  runAll: static func() -> RunResult {
     This initIfNeeded()
-    This specInst runAll()
+    return This specInst runAll()
   }
 }
 

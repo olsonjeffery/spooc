@@ -1,6 +1,8 @@
 import structs/ArrayList
 
 import Context
+import RunResult
+import ContextResult
 
 SpecifyInstance: class {
   contexts: ArrayList<Context>
@@ -16,15 +18,16 @@ SpecifyInstance: class {
     this contexts add(ctx)
   }
 
-  runAll: func() -> Int {
+  runAll: func() -> RunResult {
     "---" println()
+    ctxResults := ArrayList<ContextResult> new()
     this contexts each(|ctx| {
       if(ctx runnable) {
-        ctx run()
+        ctxResults add(ctx run())
       }
     })
     "---" println()
 
-    return 0
+    return (RunResult new(ctxResults))
   }
 }

@@ -1,6 +1,7 @@
 import structs/ArrayList
 
 import Specification
+import ContextResult
 import SpecificationResult
 
 Context: class {
@@ -48,13 +49,15 @@ Context: class {
     this runnable = true
   }
 
-  run: func() {
+  run: func() -> ContextResult {
     "" println()
     ("+ " + (this name)) println()
     this beforeFunc()
+    specResults := ArrayList<SpecificationResult> new()
     for (spec in specs) {
       msg := (" - " + (spec name))
       result := spec runSpec()
+      specResults add(result)
       fe := result failureException
       ee := result errorException
       failed := result failed
@@ -67,5 +70,7 @@ Context: class {
       if (error) ee print()
     }
     this afterFunc()
+
+    return (ContextResult new(this name, specResults))
   }
 }
