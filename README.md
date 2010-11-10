@@ -1,16 +1,16 @@
-= spooc: a Context/Specification-style unit testing framework for ooc
+# spooc: a Context/Specification-style unit testing framework for ooc
 
-=== See what it looks like
+### See what it looks like
 
 Take a look at `source/specs`.
 
-=== Use it
+### Use it
 
 * Clone the repo into your `$OOC_LIBS` path (usually something like `~/.ooc`).
 * `use spooc` at the top of your spec files. At the minimum you'll need to `import Specify` and `import Assert` to get the needed modules to compose specs.
 * You will want a way to run the specs. Take a look at the `Makefile` for this project and `source/specs/all_specs.ooc` to get some ideas for how you might approach this. I know, I'm not satisfied with it, either.
 
-=== License
+### License
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation
